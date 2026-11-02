@@ -47,6 +47,14 @@ def test_item_mais_barato_retorna_item_de_menor_preco():
     pedido = Pedido("Cauã", itens)
 
     assert pedido.item_mais_barato().nome == "Cabo"  
+
+def test_total_com_desconto_subtrai_percentual():
+    itens = [
+        Item("Teclado", 100.00, 1),
+    ]
+    pedido = Pedido("Cauã", itens)
+
+    assert pedido.total_com_desconto(10) == 90.00
 # =============================================================
 # PARTE 2 — Implemente com TDD
 # Ciclo: teste → implementação → refatoração
