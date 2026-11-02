@@ -1,10 +1,11 @@
+
 import pytest
 from unittest.mock import MagicMock
 from pedido.pedido import Item, Pedido
 
 
 # =============================================================
-# EXEMPLO — um teste pronto, para você copiar o formato
+# EXEMPLO — teste pronto fornecido pela atividade
 # =============================================================
 
 def test_exemplo_quantidade_total(pedido_pequeno):
@@ -14,27 +15,34 @@ def test_exemplo_quantidade_total(pedido_pequeno):
 
 # =============================================================
 # PARTE 1 — Encontre os bugs
-# Escreva um teste para cada bug. Cada teste deve FALHAR
-# no código original. Não altere src/pedido/pedido.py ainda.
+# Cada teste deve FALHAR no código original.
+# Não altere src/pedido/pedido.py ainda.
 # =============================================================
 
+def test_subtotal_considera_quantidade():
+    itens = [
+        Item("Pão de queijo", 3.00, 2),
+        Item("Café", 5.00, 1),
+    ]
+    pedido = Pedido("Cauã", itens)
+
+    # 2 pães de queijo (R$ 6,00) + 1 café (R$ 5,00)
+    assert pedido.subtotal() == 11.00
 
 
 # =============================================================
 # PARTE 2 — Implemente com TDD
-# Siga o ciclo: 🔴 escreva o teste → 🟢 implemente → 🟡 refatore
+# Ciclo: teste → implementação → refatoração
 # =============================================================
 
 # Requisito 1 — contar_frete_gratis(pedidos) -> int
-# Escreva os testes ANTES de implementar a função
-
+# Os testes serão adicionados antes da implementação.
 
 
 # Requisito 2 — situacao(unidades_indisponiveis) -> str
-# Escreva os testes ANTES de implementar o método
-
+# Os testes serão adicionados antes da implementação.
 
 
 # Requisito 3 — sugerir_frete_gratis(sms_service) -> None
-# Use MagicMock para simular o serviço de SMS
-# Escreva os testes ANTES de implementar o método
+# Utilizar MagicMock para simular o serviço de SMS.
+# Os testes serão adicionados antes da implementação.
