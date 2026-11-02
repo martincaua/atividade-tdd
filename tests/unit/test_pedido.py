@@ -98,6 +98,34 @@ def test_contar_frete_gratis_lista_vazia():
 # Requisito 2 — situacao(unidades_indisponiveis) -> str
 # Os testes serão adicionados antes da implementação.
 
+def test_situacao_cancela_se_faltar_mais_de_25_porcento_mesmo_com_frete_gratis():
+    pedido = Pedido("Ana", [Item("Notebook", 100.00, 4)])
+
+    assert pedido.situacao(2) == "Cancelado por falta de estoque"
+
+
+def test_situacao_confirma_com_frete_gratis():
+    pedido = Pedido("Bruno", [Item("Teclado", 60.00, 2)])
+
+    assert pedido.situacao(0) == "Confirmado com frete grátis"
+
+
+def test_situacao_confirma_sem_frete_gratis():
+    pedido = Pedido("Carla", [Item("Café", 10.00, 2)])
+
+    assert pedido.situacao(0) == "Confirmado"
+
+
+def test_situacao_com_exatamente_25_porcento_indisponivel():
+    pedido = Pedido("Daniel", [Item("Produto", 60.00, 4)])
+
+    assert pedido.situacao(1) == "Confirmado com frete grátis"
+
+
+def test_situacao_cancela_com_pouco_mais_de_25_porcento_indisponivel():
+    pedido = Pedido("Eva", [Item("Produto", 60.00, 4)])
+
+    assert pedido.situacao(2) == "Cancelado por falta de estoque"
 
 # Requisito 3 — sugerir_frete_gratis(sms_service) -> None
 # Utilizar MagicMock para simular o serviço de SMS.
