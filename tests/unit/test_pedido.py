@@ -30,6 +30,14 @@ def test_subtotal_considera_quantidade():
     assert pedido.subtotal() == 11.00
 
 
+def test_frete_gratis_com_subtotal_exatamente_50():
+    itens = [
+        Item("Produto", 50.00, 1),
+    ]
+    pedido = Pedido("Cauã", itens)
+
+    assert pedido.tem_frete_gratis() is True
+  
 # =============================================================
 # PARTE 2 — Implemente com TDD
 # Ciclo: teste → implementação → refatoração
