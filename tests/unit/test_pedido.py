@@ -37,7 +37,16 @@ def test_frete_gratis_com_subtotal_exatamente_50():
     pedido = Pedido("Cauã", itens)
 
     assert pedido.tem_frete_gratis() is True
-  
+
+def test_item_mais_barato_retorna_item_de_menor_preco():
+    itens = [
+        Item("Teclado", 100.00, 1),
+        Item("Mouse", 50.00, 1),
+        Item("Cabo", 15.00, 1),
+    ]
+    pedido = Pedido("Cauã", itens)
+
+    assert pedido.item_mais_barato().nome == "Cabo"  
 # =============================================================
 # PARTE 2 — Implemente com TDD
 # Ciclo: teste → implementação → refatoração
