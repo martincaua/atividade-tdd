@@ -2,6 +2,7 @@
 import pytest
 from unittest.mock import MagicMock
 from pedido.pedido import Item, Pedido
+from pedido.pedido import Item, Pedido, contar_frete_gratis
 
 
 # =============================================================
@@ -63,6 +64,36 @@ def test_total_com_desconto_subtrai_percentual():
 # Requisito 1 — contar_frete_gratis(pedidos) -> int
 # Os testes serão adicionados antes da implementação.
 
+def test_contar_frete_gratis_todos_com_frete_gratis():
+    pedidos = [
+        Pedido("Ana", [Item("Lanche", 60.00)]),
+        Pedido("Bruno", [Item("Pizza", 50.00)]),
+    ]
+
+    assert contar_frete_gratis(pedidos) == 2
+
+
+def test_contar_frete_gratis_nenhum_com_frete_gratis():
+    pedidos = [
+        Pedido("Ana", [Item("Café", 10.00)]),
+        Pedido("Bruno", [Item("Suco", 20.00)]),
+    ]
+
+    assert contar_frete_gratis(pedidos) == 0
+
+
+def test_contar_frete_gratis_lista_mista():
+    pedidos = [
+        Pedido("Ana", [Item("Lanche", 60.00)]),
+        Pedido("Bruno", [Item("Café", 10.00)]),
+        Pedido("Carla", [Item("Pizza", 50.00)]),
+    ]
+
+    assert contar_frete_gratis(pedidos) == 2
+
+
+def test_contar_frete_gratis_lista_vazia():
+    assert contar_frete_gratis([]) == 0
 
 # Requisito 2 — situacao(unidades_indisponiveis) -> str
 # Os testes serão adicionados antes da implementação.
