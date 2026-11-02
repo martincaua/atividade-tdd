@@ -1,6 +1,8 @@
+
 from dataclasses import dataclass
 
 VALOR_FRETE_GRATIS = 50.0
+
 
 @dataclass
 class Item:
@@ -8,10 +10,22 @@ class Item:
     preco: float
     quantidade: int = 1
 
+
 class Pedido:
     def __init__(self, cliente: str, itens: list):
         self.cliente = cliente
         self.itens = itens
+
+    def situacao(self, unidades_indisponiveis: int) -> str:
+        total = self.quantidade_total()
+
+        if unidades_indisponiveis / total > 0.25:
+            return "Cancelado por falta de estoque"
+
+        if self.tem_frete_gratis():
+            return "Confirmado com frete grátis"
+
+        return "Confirmado"
 
     def quantidade_total(self) -> int:
         return sum(item.quantidade for item in self.itens)
@@ -20,7 +34,7 @@ class Pedido:
         return sum(
             item.preco * item.quantidade
             for item in self.itens
-    )
+        )
 
     def tem_frete_gratis(self) -> bool:
         return self.subtotal() >= VALOR_FRETE_GRATIS
@@ -33,6 +47,7 @@ class Pedido:
 
     def total_com_desconto(self, percentual: float) -> float:
         return self.subtotal() - self.subtotal() * percentual / 100
+
 
 def contar_frete_gratis(pedidos: list) -> int:
     return sum(
