@@ -16,6 +16,7 @@ class Pedido:
         self.cliente = cliente
         self.itens = itens
 
+
     def situacao(self, unidades_indisponiveis: int) -> str:
         total = self.quantidade_total()
 
@@ -27,6 +28,7 @@ class Pedido:
 
         return "Confirmado"
 
+
     def quantidade_total(self) -> int:
         return sum(item.quantidade for item in self.itens)
 
@@ -36,14 +38,24 @@ class Pedido:
             for item in self.itens
         )
 
+
+    def sugerir_frete_gratis(self, sms_service) -> None:
+        if not self.tem_frete_gratis():
+            valor_faltante = VALOR_FRETE_GRATIS - self.subtotal()
+            sms_service.enviar(self.cliente, valor_faltante)
+
+
     def tem_frete_gratis(self) -> bool:
         return self.subtotal() >= VALOR_FRETE_GRATIS
+
 
     def item_mais_caro(self) -> Item:
         return max(self.itens, key=lambda item: item.preco)
 
+
     def item_mais_barato(self) -> Item:
         return min(self.itens, key=lambda item: item.preco)
+
 
     def total_com_desconto(self, percentual: float) -> float:
         return self.subtotal() - self.subtotal() * percentual / 100
